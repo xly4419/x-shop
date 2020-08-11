@@ -1,0 +1,31 @@
+.el-submenu .el-menu-item{
+    font-size: 14px;
+    padding-left: 49px !important;
+    &.is-active{background-color: rgba($color: $mainColor, $alpha: 0.2) !important;}
+}
+//修改一级菜单样式
+.el-submenu {
+    &.is-active.is-opened .el-submenu__title{
+        background-color: $mainColor !important;
+    }
+}
+.close {
+    .el-submenu {
+      &.is-opened{
+        > .el-submenu__title{
+          background-color: $mainColor !important;
+        }
+      }
+    }
+}
+.el-menu--vertical{
+    .el-menu{
+        background-color: #344a5f !important;
+    }
+    .el-menu-item{
+        line-height: 56px;
+    }
+    .el-menu-item:hover{
+        background-color: $mainColor !important;
+    }
+}
