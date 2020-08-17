@@ -20,7 +20,7 @@ export function common() {
     const getInfoCategoryAll = () => {
         GetCategoryAll()
             .then(response => {
-                // 给数据添加属性 forEach
+                // 给数据添加属性 forEach  二级分类信息显示   svg图标名称
                 response.data.data.forEach(item => {
                     item.showAll = false;
                     item.iconClass = "plus"

@@ -31,7 +31,7 @@ export default {
   padding-top: $layoutHeader + 30;
   padding-left: $navMenu + 30;
   padding-right: 30px;
-  background-color: #f7f7f7;
+  background-color: #f7f7f7;     
   @include webkit(transition, all 0.3s ease 0s);
   @include webkit(box-sizing, border-box);
 }
