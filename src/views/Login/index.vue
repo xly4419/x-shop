@@ -286,12 +286,12 @@ export default {
      *  注册方法
      */
     const register = () => {
-      let responseData = {
+      let resquestData = {
         username: ruleForm.username,
         password: sha1(ruleForm.password),
         code: ruleForm.code
       };
-      Register(responseData)
+      Register(resquestData)
         .then(response => {
           let data = response.data;
           root.$message({
@@ -311,22 +311,19 @@ export default {
      *  登录方法
      */
     const login = () => {
-      let responseData = {
+      let resquestData = {
         username: ruleForm.username,
         password: sha1(ruleForm.password),
         code: ruleForm.code
       };
-      Login(responseData)
+      root.$store
+        .dispatch("app/login", resquestData)
         .then(response => {
           console.log(response);
-          // let data = response.data;
-          // root.$message({
-          //   type: "success",
-          //   message: data.message,
-          //   duration: 2000
-          // });
-          // 登录成功 跳到登陆界面
-          // toggleMenu(menuTab[0]);
+          console.log("登陆成功");
+          root.$router.push({
+            name: "Console"
+          });
           clearDown();
         })
         .catch(error => {
