@@ -50,6 +50,7 @@ export default {
   height: 100%;
   padding-top: 30px;
   padding-left: 30px;
+  padding-right: 30px;
   @include webkit(box-sizing, border-box);
   background-color: #fff;
 }
