@@ -20,7 +20,7 @@ export function common() {
     const getInfoCategoryAll = () => {
         GetCategoryAll()
             .then(response => {
-                // 给数据添加属性
+                // 给数据添加属性 forEach
                 response.data.data.forEach(item => {
                     item.showAll = false;
                     item.iconClass = "plus"
