@@ -168,7 +168,8 @@ export default {
               message: data.message,
               type: "success"
             });
-            category_data.item.push(data.data); //追加进数组里
+            // category_data.item.push(data.data); //追加进数组里
+            getInfoCategoryAll();
           }
           submit_loading.value = false;
           //   refs.categoryForm.resetFields();
@@ -343,7 +344,6 @@ export default {
      * 生命周期
      */
     onMounted(() => {
-      // getInfoCategory();
       getInfoCategoryAll();
     });
     /**
