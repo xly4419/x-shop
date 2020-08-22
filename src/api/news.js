@@ -30,12 +30,32 @@ export function AddInfo(data) {
     })
 }
 /**
+ * 删除信息
+ */
+export function EditInfo(data) {
+    return instance.request({
+        method: "POST",
+        url: "/news/editInfo/",
+        data
+    })
+}
+/**
  * 获取信息列表
  */
 export function GetList(data) {
     return instance.request({
         method: "POST",
         url: "/news/getList/",
+        data
+    })
+}
+/**
+ * 删除信息
+ */
+export function DeleteInfo(data) {
+    return instance.request({
+        method: "POST",
+        url: "/news/deleteInfo/",
         data
     })
 }

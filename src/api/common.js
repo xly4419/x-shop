@@ -1,5 +1,6 @@
 import { reactive } from "@vue/composition-api";
 import { GetCategoryAll, GetCategory } from "./news";
+import instance from "@/utils/axios.js";
 export function common() {
     const category = reactive({
         item: []
@@ -35,4 +36,14 @@ export function common() {
         getInfoCategory,
         getInfoCategoryAll
     }
+}
+/**
+ * 获取七牛云接口
+ */
+export function QiniuToken(data) { 
+    return instance.request({
+        method: "POST",
+        url: "/uploadImgToken/",
+        data
+    })
 }

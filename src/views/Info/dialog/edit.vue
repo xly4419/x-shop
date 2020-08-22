@@ -1,12 +1,12 @@
 <template>
   <el-dialog
-    title="新增"
+    title="修改"
     :visible.sync="data.dialog_info_flag"
     @close="close"
     width="580px"
     @opened="openDialog"
   >
-    <el-form :model="data.form" ref="addInfoForm">
+    <el-form :model="data.form" ref="editInfoForm">
       <el-form-item label="类型" :label-width="data.formLabelWidth" prop="category">
         <el-select v-model="data.form.category" placeholder="请选择">
           <el-option
@@ -34,7 +34,7 @@
   </el-dialog>
 </template>
 <script>
-import { AddInfo } from "@/api/news.js";
+import { EditInfo, GetList } from "@/api/news.js";
 import { currentTime } from "@/utils/common.js";
 import { ref, watch, reactive } from "@vue/composition-api";
 export default {
@@ -46,6 +46,10 @@ export default {
     category: {
       type: Array,
       default: () => []
+    },
+    id: {
+      type: String,
+      default: ""
     }
   },
   setup(props, { emit, root, refs }) {
@@ -73,6 +77,7 @@ export default {
     const submit = () => {
       data.createDate = currentTime();
       let requestData = {
+        id: props.id,
         categoryId: data.form.category,
         title: data.form.title,
         imgUrl: "",
@@ -87,14 +92,13 @@ export default {
         return false;
       }
       data.submitLoading = true;
-      AddInfo(requestData)
+      EditInfo(requestData)
         .then(response => {
           root.$message({
             message: response.data.message,
             type: "success"
           });
           data.submitLoading = false;
-          resetForm();
           emit("getInfo");
         })
         .catch(error => {
@@ -103,9 +107,28 @@ export default {
     };
     const openDialog = () => {
       data.categoryOptions = props.category;
+      getInfoList();
+    };
+    const getInfoList = () => {
+      let requestData = {
+        id: props.id,
+        pageNumber: 1,
+        pageSize: 1
+      };
+      GetList(requestData)
+        .then(response => {
+          // 更新数据;
+          let responseData = response.data.data.data[0];
+          data.form = {
+            category: responseData.categoryId,
+            title: responseData.title,
+            content: responseData.content
+          };
+        })
+        .catch(error => {});
     };
     const resetForm = () => {
-      refs.addInfoForm.resetFields();
+      refs.editInfoForm.resetFields();
     };
 
     return {
@@ -114,6 +137,7 @@ export default {
       close,
       submit,
       openDialog,
+      getInfoList,
       resetForm
     };
   }

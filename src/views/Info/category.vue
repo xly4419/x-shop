@@ -8,10 +8,10 @@
           <div class="category-wrap">
             <div class="category" v-for="item in category_data.item" :key="item.id">
               <h4>
-                <div @click="showChild(item)">
+                <template @click="showChild(item)">
                   <svg-icon :icon-class="item.iconClass"></svg-icon>
                   {{item.category_name}}
-                </div>
+                </template>
                 <div class="button-group">
                   <el-button
                     size="mini"
@@ -168,7 +168,8 @@ export default {
               message: data.message,
               type: "success"
             });
-            category_data.item.push(data.data); //追加进数组里
+            // category_data.item.push(data.data); //追加进数组里
+            getInfoCategoryAll();
           }
           submit_loading.value = false;
           //   refs.categoryForm.resetFields();
