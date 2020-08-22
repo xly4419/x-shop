@@ -1,0 +1,14 @@
+@import "./config.scss";
+@import "./normalize.scss";
+@import "./elementui.scss";
+
+.pull-left{ float: left;};
+.pull-right{ float: right;}
+
+//占位空间
+.black-space-30{ height: 30px;}
+
+//循环样式
+@for $i from 1 to 110 {
+    .margin-left-#{$i} { margin-left: (1px * $i);};
+}
