@@ -8,10 +8,10 @@
           <div class="category-wrap">
             <div class="category" v-for="item in category_data.item" :key="item.id">
               <h4>
-                <template @click="showChild(item)">
+                <div @click="showChild(item)">
                   <svg-icon :icon-class="item.iconClass"></svg-icon>
                   {{item.category_name}}
-                </template>
+                </div>
                 <div class="button-group">
                   <el-button
                     size="mini"

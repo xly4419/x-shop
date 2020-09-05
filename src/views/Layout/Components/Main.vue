@@ -2,7 +2,13 @@
   <div id="main-wrap">
     <div class="mian-content">
       <div class="content">
-        <router-view />
+        <!-- 子路由显示区 -->
+        <keep-alive>
+          <!-- 需要缓存 -->
+          <router-view v-if="$route.meta.keepAlive" />
+        </keep-alive>
+        <!-- 不需要缓存 -->
+        <router-view v-if="!$route.meta.keepAlive" />
       </div>
     </div>
   </div>
@@ -31,7 +37,7 @@ export default {
   padding-top: $layoutHeader + 30;
   padding-left: $navMenu + 30;
   padding-right: 30px;
-  background-color: #f7f7f7;     
+  background-color: #f7f7f7;
   @include webkit(transition, all 0.3s ease 0s);
   @include webkit(box-sizing, border-box);
 }

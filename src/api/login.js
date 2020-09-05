@@ -10,8 +10,15 @@ export function GetSms(data) {
     })
 }
 /**
- * 获取用户信息
+ * 获取用户角色
  */
+export function GetUserRole(data = {}) {
+    return instance.request({
+        method: "POST",
+        url: "/userRole/",
+        data
+    })
+}
 /**
  * 登录
  */

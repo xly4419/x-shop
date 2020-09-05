@@ -94,7 +94,7 @@ export default {
             type: "success"
           });
           data.submitLoading = false;
-          resetForm();
+          close();
           emit("getInfo");
         })
         .catch(error => {

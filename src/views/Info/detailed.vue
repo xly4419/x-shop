@@ -47,7 +47,13 @@ import "quill/dist/quill.bubble.css";
 import UploadImg from "@c/UploadImg";
 import { timestampToTime } from "@/utils/common.js";
 import { EditInfo, GetList } from "@/api/news.js";
-import { ref, reactive, onMounted, watch } from "@vue/composition-api";
+import {
+  ref,
+  reactive,
+  onMounted,
+  watch,
+  onActivated
+} from "@vue/composition-api";
 import { common } from "@/api/common.js";
 export default {
   name: "infoDetailed",
@@ -126,6 +132,12 @@ export default {
      */
     onMounted(() => {
       getInfoCategory();
+    });
+    /**
+     * 组件实行缓存还会执行
+     */
+    onActivated(() => {
+      data.id = root.$route.params.id || root.$store.state.infoDetailed.id;
       getInfoList();
     });
     /**

@@ -17,11 +17,11 @@ $mainColor: #f56c6c;
 @mixin labelDom($align,$width,$line-height:"normal") {
     label {
         float: left;
-        width: $width + px;
+        width: $width;
         text-align: $align;
-        line-height: $line-height + px;
+        line-height: $line-height;
       }
       .wrap-content {
-        margin-left: $width + px;
+        margin-left: $width;
       }
 }

@@ -4,7 +4,7 @@
       <img src="../../../assets/logo.png" alt />
     </h1>
     <el-menu
-      default-active="1-4-1"
+      :default-active="defaultActive"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
       background-color="transparent"
@@ -42,6 +42,14 @@ export default {
      */
     // const isCollapse = ref(false);
     const routers = reactive(root.$router.options.routes);
+    /**
+     * 监听路由变化
+     */
+    const defaultActive = computed(() => {
+      const route = root.$route;
+      const { path } = route;
+      return path;
+    });
     // console.log(routers);
     /**
      * computed 监听
@@ -52,7 +60,8 @@ export default {
      */
     return {
       isCollapse,
-      routers
+      routers,
+      defaultActive
     };
   }
 };

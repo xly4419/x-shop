@@ -2,11 +2,10 @@ import axios from 'axios';
 import { Message } from 'element-ui';
 import { getToken, getUserName } from "@/utils/app.js";
 
-
-const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/api';
+const BASEURL = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API : process.env.VUE_APP_API;
 const instance = axios.create({
     baseURL: BASEURL,
-    timeout: 2000
+    timeout: 3000
 });
 
 // 添加请求拦截器

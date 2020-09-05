@@ -83,7 +83,7 @@ import {
 } from "@/utils/validate.js";
 import sha1 from "js-sha1";
 import { GetSms, Register, Login } from "@/api/login.js";
-import { reactive, ref, onMounted } from "@vue/composition-api";
+import { reactive, ref, onMounted, onUnmounted } from "@vue/composition-api";
 export default {
   name: "login",
   setup(props, { refs, root }) {
@@ -231,6 +231,12 @@ export default {
           console.log(data); //后面取消掉
         })
         .catch(error => {
+          clearDown();
+          submitButtonStatus.value = false;
+          updateButtonStatus({
+            status: false,
+            text: "重新发送"
+          });
           console.log(error);
         });
     };
@@ -319,7 +325,7 @@ export default {
       root.$store
         .dispatch("app/login", resquestData)
         .then(response => {
-          console.log(response);
+          // console.log(response);
           console.log("登陆成功");
           root.$router.push({
             name: "Console"
@@ -335,6 +341,10 @@ export default {
      */
     //挂载完成后
     onMounted(() => {});
+    // 销毁页面
+    onUnmounted(()=>{
+      clearInterval(timer.value);
+    });
     return {
       menuTab,
       model,

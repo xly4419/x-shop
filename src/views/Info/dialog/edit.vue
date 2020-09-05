@@ -100,6 +100,7 @@ export default {
           });
           data.submitLoading = false;
           emit("getInfo");
+          emit("update:flag", false);
         })
         .catch(error => {
           data.submitLoading = false;

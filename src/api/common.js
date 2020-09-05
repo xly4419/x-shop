@@ -38,12 +38,39 @@ export function common() {
     }
 }
 /**
- * 获取七牛云接口
+ * 获取七牛云token
+ * 
+ * @param {
+ * accesskey: 七牛云密钥AK  String,
+ * secretkey: 七牛云密钥SK  String,
+ * buckety: 七牛云命名空间名字  String,
+ * } data 
  */
-export function QiniuToken(data) { 
+export function QiniuToken(data) {
     return instance.request({
         method: "POST",
         url: "/uploadImgToken/",
+        data
+    })
+}
+/**
+ * 请求表格数据
+ */
+export function loadTableData(parms) {
+    return instance.request({
+        method: parms.method || "post",
+        url: parms.url,
+        data: parms.data || {}
+    })
+}
+/**
+ * 获取省市区关联数据
+ * @param {*} data 
+ */
+export function GetCityPicker(data) {
+    return instance.request({
+        method: "POST",
+        url: "/cityPicker/",
         data
     })
 }

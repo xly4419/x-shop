@@ -5,7 +5,15 @@ Vue.use(VueRouter);
 //引入布局组件
 import Layout from "../views/Layout/index";
 
-const routes = [
+/**
+ * 1、系统分配
+ * 2、角色分配
+ */
+
+/**
+ * 1、默认路由
+ */
+export const defaultRouterMap = [
   {
     path: "/",
     redirect: "login",
@@ -43,7 +51,13 @@ const routes = [
       },
       component: () => import("../views/Console/index.vue"),
     }]
-  },
+  }
+];
+/**
+ * 2、动态路由
+ * 角色 "业务员,技术员,部门经理"
+ */
+export const asyncRouterMap = [
   /**
    * 信息管理
    */
@@ -51,6 +65,8 @@ const routes = [
     path: "/info",
     name: "Info",
     meta: {
+      role: ["业务员", "部门经理"],
+      system: "信息功能",
       name: "信息管理",
       icon: "info"
     },
@@ -59,6 +75,8 @@ const routes = [
       path: "/infoIndex",
       name: "InfoIndex",
       meta: {
+        keepAlive: true,
+        role: ["业务员", "部门经理"],
         name: "信息列表"
       },
       component: () => import("../views/Info/index.vue"),
@@ -66,6 +84,8 @@ const routes = [
       path: "/infoCategory",
       name: "InfoCategory",
       meta: {
+        keepAlive: true,
+        role: ["业务员", "部门经理"],
         name: "信息分类"
       },
       component: () => import("../views/Info/category.vue"),
@@ -74,6 +94,8 @@ const routes = [
       name: "InfoDetailed",
       hidden: true,
       meta: {
+        keepAlive: true,
+        role: ["业务员", "部门经理"],
         name: "信息详情"
       },
       component: () => import("../views/Info/detailed.vue"),
@@ -86,6 +108,8 @@ const routes = [
     path: "/user",
     name: "User",
     meta: {
+      role: ["技术员", "部门经理"],
+      system: "用户功能",     //自定义属性
       name: "用户管理",
       icon: "user"
     },
@@ -94,6 +118,8 @@ const routes = [
       path: "/userIndex",
       name: "UserIndex",
       meta: {
+        keepAlive: true,
+        role: ["技术员", "部门经理"],
         name: "用户列表"
       },
       component: () => import("../views/User/index.vue"),
@@ -102,7 +128,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  routes
+  routes: defaultRouterMap,
 });
 
 /**

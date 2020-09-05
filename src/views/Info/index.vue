@@ -40,14 +40,7 @@
         <div class="label-wrap key-work">
           <label for>关键字：</label>
           <div class="wrap-content">
-            <el-select v-model="search_key" placeholder="请选择" style="width: 100%;">
-              <el-option
-                v-for="item in search_option"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              ></el-option>
-            </el-select>
+            <SelectVue :config="data.configOption" />
           </div>
         </div>
       </el-col>
@@ -82,7 +75,6 @@
       <el-table-column prop="title" label="标题" width="360"></el-table-column>
       <el-table-column prop="categoryId" label="类型" width="80" :formatter="toCategory"></el-table-column>
       <el-table-column prop="createDate" label="日期" width="160" :formatter="toData"></el-table-column>
-      <el-table-column prop="user" label="管理员" width="70"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <!--slot-scope="scope"-->
@@ -103,6 +95,8 @@
           class="pull-right"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
+          :page-sizes="[5,10,15,20]"
+          :page-size="5"
           background
           layout="total,sizes,prev, pager, next, jumper"
           :total="total"
@@ -110,12 +104,18 @@
       </el-col>
     </el-row>
     <!-- 新增的弹窗 -->
-    <DialogInfo :flag.sync="dialog_info_add" :category="options.category" @getInfo="getInfoList"/>
+    <DialogInfo :flag.sync="dialog_info_add" :category="options.category" @getInfo="getInfoList" />
     <!-- 编辑的弹窗 -->
-    <DialogEditInfo :flag.sync="dialog_info_edit" :id="infoId" :category="options.category" @getInfo="getInfoList" />
+    <DialogEditInfo
+      :flag.sync="dialog_info_edit"
+      :id="infoId"
+      :category="options.category"
+      @getInfo="getInfoList"
+    />
   </div>
 </template>
 <script>
+import SelectVue from "@c/Select";
 import DialogInfo from "./dialog/info.vue";
 import DialogEditInfo from "./dialog/edit.vue";
 import { timestampToTime } from "@/utils/common.js";
@@ -126,7 +126,8 @@ import { common } from "@/api/common.js";
 export default {
   components: {
     DialogInfo,
-    DialogEditInfo
+    DialogEditInfo,
+    SelectVue
   },
   setup(props, { root }) {
     const { confirm } = global();
@@ -145,6 +146,11 @@ export default {
     const deleteInfoId = ref("");
     const infoId = ref("");
     // 搜索关键字
+    const data = reactive({
+      configOption: {
+        init: ["id", "title"]
+      }
+    });
     const search_option = reactive([
       {
         value: "id",
@@ -160,7 +166,7 @@ export default {
     });
     const page = reactive({
       pageNumber: 1,
-      pageSize: 10
+      pageSize: 5
     });
     //表格数据
     const table_data = reactive({
@@ -264,12 +270,14 @@ export default {
       let categoryData = options.category.filter(
         item => item.id == row.categoryId
       )[0];
+      if (!categoryData) {
+        return false;
+      }
       return categoryData.category_name;
     };
     //
     const editInfo = val => {
       infoId.value = val;
-      // console.log(infoId.value);
       dialog_info_edit.value = true;
     };
     const detailed = row => {
@@ -286,7 +294,7 @@ export default {
       root.$router.push({
         name: "InfoDetailed",
         params: {
-          id: row.id,
+          id: row.id
         }
       });
     };
@@ -321,6 +329,7 @@ export default {
       deleteInfoId,
       infoId,
       // reactive
+      data,
       search_option,
       options,
       page,
@@ -346,13 +355,13 @@ export default {
 @import "../../styles/config.scss";
 .label-wrap {
   &.category {
-    @include labelDom(left, 60, 40);
+    @include labelDom(left, 60px, 40px);
   }
   &.date {
-    @include labelDom(right, 70, 40);
+    @include labelDom(right, 70px, 40px);
   }
   &.key-work {
-    @include labelDom(right, 80, 40);
+    @include labelDom(right, 80px, 40px);
   }
 }
 </style>

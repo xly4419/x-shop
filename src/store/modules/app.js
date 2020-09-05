@@ -4,7 +4,13 @@ import { setToken, setUserName, getUserName, removeUserName, removeToken } from 
 const state = {
     isCollapse: JSON.parse(sessionStorage.getItem("isCollapse")) || false,
     to_ken: "",
-    username: getUserName() || ""
+    username: getUserName() || "",
+    role: [],
+    buttonPermission: [],
+};
+const getters = {
+    role: state => state.role,
+    buttonPermission: state => state.buttonPermission,
 };
 const mutations = {
     SET_COLLAPSE(state) {
@@ -17,7 +23,13 @@ const mutations = {
     },
     SET_USERNAME(state, value) {
         state.SET_USERNAME = value;
-    }
+    },
+    SET_ROLES(state, value) {
+        state.role = value
+    },
+    SET_BUTTON(state, value) {
+        state.buttonPermission = value
+    },
 };
 const actions = {
     login(content, resquestData) {
@@ -41,6 +53,7 @@ const actions = {
             removeUserName();
             commit("SET_TOKEN", "");
             commit("SET_USERNAME", "");
+            commit("SET_ROLES", "");
             resolve();
         })
     }
@@ -49,6 +62,7 @@ const actions = {
 export default {
     namespaced: true,
     state,
+    getters,
     mutations,
     actions
 };
