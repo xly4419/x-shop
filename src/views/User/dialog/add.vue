@@ -12,7 +12,12 @@
       </el-form-item>
 
       <el-form-item label="密码" :label-width="data.formLabelWidth" prop="password">
-        <el-input v-model="data.form.password" placeholder="请输入6-20位数字+字母"></el-input>
+        <el-input
+          type="password"
+          show-password
+          v-model="data.form.password"
+          placeholder="请输入6-20位数字+字母"
+        ></el-input>
       </el-form-item>
 
       <el-form-item label="真实姓名" :label-width="data.formLabelWidth" prop="truename">

@@ -29,6 +29,7 @@
         >添加用户</el-button>
       </el-col>
     </el-row>
+    <div class="black-space-30"></div>
     <!-- TableVue组件  -->
     <TableVue ref="userTable" :config="data.configTable" :checkTableRow.sync="data.checkTableRow">
       <!-- 插槽 -->

@@ -39,6 +39,7 @@ const actions = {
                 let data = response.data.data
                 content.commit("SET_TOKEN", data.token);
                 content.commit("SET_USERNAME", data.username);
+                localStorage.setItem("username", data.username);
                 setToken(data.token);
                 setUserName(data.username)
                 resolve(response);
@@ -54,6 +55,7 @@ const actions = {
             commit("SET_TOKEN", "");
             commit("SET_USERNAME", "");
             commit("SET_ROLES", "");
+            localStorage.removeItem("username");
             resolve();
         })
     }

@@ -31,6 +31,7 @@
             autocomplete="off"
             minlength="0"
             maxlength="20"
+            show-password
           ></el-input>
         </el-form-item>
 
@@ -42,6 +43,7 @@
             autocomplete="off"
             minlength="0"
             maxlength="20"
+            show-password
           ></el-input>
         </el-form-item>
 

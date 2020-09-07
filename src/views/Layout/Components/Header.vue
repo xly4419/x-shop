@@ -4,10 +4,7 @@
       <svg-icon iconClass="menu" class="menu"></svg-icon>
     </div>
     <div class="pull-right">
-      <div class="user-info pull-left">
-        <img src="../../../assets/face.jpg" alt />
-        {{ username }}
-      </div>
+      <div class="user-info pull-left">{{ username }}</div>
       <div class="header-icon pull-left" @click="exit">
         <svg-icon iconClass="exit" class="exit"></svg-icon>
       </div>
@@ -15,7 +12,6 @@
   </div>
 </template>
 <script>
-import { computed } from "@vue/composition-api";
 export default {
   name: "Header",
   setup(props, { root }) {
@@ -26,7 +22,7 @@ export default {
     const navMenuStatus = () => {
       root.$store.commit("app/SET_COLLAPSE");
     };
-    const username = computed(() => root.$store.state.app.username);
+    const username = localStorage.getItem("username");
     const exit = () => {
       root.$store.dispatch("app/exit").then(() => {
         root.$router.push({
@@ -79,12 +75,6 @@ export default {
   border-right: 1px solid #ededed;
   + .header-icon {
     padding: 0 28px;
-  }
-  img {
-    display: inline-block;
-    margin-bottom: -12px;
-    margin-right: 18px;
-    border-radius: 50px;
   }
 }
 </style>
